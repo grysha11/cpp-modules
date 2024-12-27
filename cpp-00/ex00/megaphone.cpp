@@ -6,6 +6,7 @@ int main(int ac, char **av) {
         std::cout << "* LOUD AND UNBEREABLE FEEDBACK NOISE *" << std::endl;
         return 1;
     }
+
     for (size_t i = 1; av[i]; i++) {
         for (size_t j = 0; av[i][j]; j++) {
             if (islower(av[i][j])) {
@@ -16,4 +17,6 @@ int main(int ac, char **av) {
         }
     }
     std::cout << std::endl;
+
+    return 0;
 }
