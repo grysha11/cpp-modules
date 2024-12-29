@@ -3,12 +3,9 @@
 #include "Contact.hpp"
 
 Contact::Contact() {
-    f_name = "";
-    l_name = "";
-    nickname = "";
-    secret = "";
-    phone_number = "";
-    index = -1;
+}
+
+Contact::~Contact() {
 }
 
 std::string Contact::getFirstName() {
@@ -31,10 +28,6 @@ std::string Contact::getPhoneNumber() {
     return phone_number;
 }
 
-int Contact::getIndex() {
-    return index;
-}
-
 void Contact::setFirstName(std::string value) {
     f_name = value;
 }
@@ -53,8 +46,4 @@ void Contact::setSecret(std::string value) {
 
 void Contact::setPhoneNumber(std::string value) {
     phone_number = value;
-}
-
-void Contact::setIndex(int i) {
-    index = i;
 }
