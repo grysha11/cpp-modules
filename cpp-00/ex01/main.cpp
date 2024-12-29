@@ -1,5 +1,6 @@
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
+#include "colors.hpp"
 
 bool check_phone(std::string num) {
     for (int i = 0; num[i]; i++) {
@@ -16,30 +17,30 @@ void add_loop(PhoneBook &pb) {
     Contact n_contact;
     std::string input;
 
-    std::cout << "Enter a first name of contact\n";
+    std::cout << VIOLET100 << "Enter a first name of contact\n" << RESET;
     while ((!std::getline(std::cin, input)) && input.empty()) {
-        std::cout << "Enter a first name of contact\n";
+        std::cout << VIOLET100 << "Enter a first name of contact\n" << RESET;
     }
     n_contact.setFirstName(input);
-    std::cout << "Enter a last name of contact\n";
+    std::cout << VIOLET100 << "Enter a last name of contact\n" << RESET;
     while ((!std::getline(std::cin, input)) && input.empty()) {
-        std::cout << "Enter a last name of contact\n";
+        std::cout << VIOLET100 << "Enter a last name of contact\n" << RESET;
     }
     n_contact.setLastName(input);
-    std::cout << "Enter a nickname of contact\n";
+    std::cout << VIOLET100 << "Enter a nickname of contact\n" << RESET;
     while ((!std::getline(std::cin, input)) && input.empty()) {
-        std::cout << "Enter a nickname of contact\n";
+        std::cout << VIOLET100 << "Enter a nickname of contact\n" << RESET;
     }
     n_contact.setNickname(input);
-    std::cout << "Enter a phone number of contact\n";
+    std::cout << VIOLET100 << "Enter a phone number of contact\n" << RESET;
     while ((!std::getline(std::cin, input)) && !check_phone(input)) {
-        std::cout << "Error: Argument can only contain numbers\n";
-        std::cout << "Enter a phone number of contact\n";
+        std::cout << RED100 << "Error: Argument can only contain numbers\n" << RESET;
+        std::cout << VIOLET100 << "Enter a phone number of contact\n" << RESET;
     }
     n_contact.setPhoneNumber(input);
-    std::cout << "Enter darkest secret of contact\n";
+    std::cout << VIOLET100 << "Enter darkest secret of contact\n" << RESET;
     while ((!std::getline(std::cin, input)) && input.empty()) {
-        std::cout << "Enter darkest secret of contact\n";
+        std::cout << VIOLET100 << "Enter darkest secret of contact\n" << RESET;
     }
     n_contact.setSecret(input);
     pb.addContact(n_contact);
@@ -52,7 +53,6 @@ bool check_number(std::string str, PhoneBook &pb) {
     }
     value = std::stoi(str);
     if (value > 0 && value <= pb.getNumContacts()) {
-        std::cout << "HERE2";
         return true;
     }
     return false;
@@ -67,9 +67,9 @@ void search_loop(PhoneBook &pb) {
         return ;
     }
     pb.displayPhoneBook();
-    std::cout << "Enter the index of a contact to see details\n";
+    std::cout << VIOLET100 << "Enter the index of a contact to see details\n" << RESET;
     while ((!std::getline(std::cin, input)) && !check_number(input, pb)) {
-        std::cout << "Only accept numeric arguments in range (1-8) and contact should exist\n";
+        std::cout << RED100 << "Error: Only accept numeric arguments in range (1-8) and contact should exist\n" << RESET;
     }
     pb.displayContact(std::stoi(input) - 1);
 }
@@ -89,10 +89,10 @@ void test_8(PhoneBook &pb) {
 int main() {
     std::string line;
     PhoneBook pb;
-    std::cout << "This is my amazing crappy phonebook" << "\n";
+    std::cout << PINK100 << "This is my amazing crappy phonebook" << "\n" << RESET;
 
     while (1) {
-        std::cout << "Enter a command: ADD | SEARCH | EXIT\n";
+        std::cout << VIOLET100 << "Enter a command: ADD | SEARCH | EXIT\n" << RESET;
         if (!std::getline(std::cin, line)) {
             return 0;
         }
