@@ -1,4 +1,4 @@
-SRC			= Account.cpp test.cpp
+SRC			= Account.cpp tests.cpp
 
 CPP			= @c++
 

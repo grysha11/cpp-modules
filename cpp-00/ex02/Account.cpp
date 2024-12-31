@@ -14,6 +14,7 @@ Account::Account( int initial_deposit ) {
     _nbWithdrawals = 0;
     _nbDeposits = 0;
     _amount = initial_deposit;
+    _totalAmount += initial_deposit;
     _nbAccounts += 1;
     _displayTimestamp();
     std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";created\n";
@@ -41,31 +42,37 @@ int	Account::getNbWithdrawals( void ) {
 }
 
 void	Account::_displayTimestamp( void ) {
-    std::cout << "[19920104_091532]";
+    std::cout << "[19920104_091532] ";
 }
 
 
 void	Account::displayAccountsInfos( void ) {
-
+    _displayTimestamp();
+    std::cout << "accounts:" << _nbAccounts << ";total:" << _totalAmount << ";deposits:" << _totalNbDeposits << ";withdrawals:" << _totalNbWithdrawals << "\n";
 }
 
 void	Account::makeDeposit( int deposit ) {
     _displayTimestamp();
+    std::cout << "index:" << _accountIndex << ";p_amount:" << _amount << ";deposit:" << deposit;
     _amount += deposit;
     _nbDeposits += 1;
     _totalAmount += deposit;
     _totalNbDeposits += 1;
+    std::cout << ";amount:" << _amount << ";nb_deposits:" << _nbDeposits << "\n";
 }
 
 bool	Account::makeWithdrawal( int withdrawal ) {
     _displayTimestamp();
+    std::cout << "index:" << _accountIndex << ";p_amount:" << _amount << ";withdrawal:";
     if (_amount >= withdrawal) {
         _amount -= withdrawal;
         _totalAmount -= withdrawal;
         _totalNbWithdrawals += 1;
-        std::cout << 
+        _nbWithdrawals += 1;
+        std::cout << withdrawal << ";amount:" << _amount << ";nb_withdrawals:" << _nbWithdrawals << "\n";
         return true;
     }
+    std::cout << "refused\n";
     return false;
 }
 
@@ -75,5 +82,5 @@ int		Account::checkAmount( void ) const {
 
 void	Account::displayStatus( void ) const {
     _displayTimestamp();
-    std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";deposits:" << _nbDeposits << ";withdrawals:" << _nbWithdrawals;
+    std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";deposits:" << _nbDeposits << ";withdrawals:" << _nbWithdrawals << "\n";
 }
