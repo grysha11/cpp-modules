@@ -1,4 +1,4 @@
-SRC			= main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
+SRC			= main.cpp zombieHorde.cpp Zombie.cpp
 
 CPP			= @c++
 
@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= brainz
+NAME		= zombie_horde
 
 %.o:		%.cpp
 				$(CPP) $(CPP_FLAGS) -c $< -o $@
