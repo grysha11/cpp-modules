@@ -2,7 +2,7 @@ SRC			= main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
 
 CPP			= @c++
 
-CPP_FLAGS	= -Wall -Werror -Wextra -std=c++98
+CPP_FLAGS	= -Wall -Werror -Wextra -std=c++98 -fsanitize=address
 
 RM			= @rm -f
 
