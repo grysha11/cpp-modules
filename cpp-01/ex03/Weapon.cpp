@@ -6,7 +6,7 @@ Weapon::Weapon(std::string init_type) {
 }
 
 Weapon::~Weapon() {
-    std::cout << "Weapon destructor called" << std::endl;
+    
 }
 
 const std::string& Weapon::getType() {
