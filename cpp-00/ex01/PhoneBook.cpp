@@ -3,7 +3,7 @@
 
 void print_str10(std::string str) {
     if (str.length() > 10) {
-            std::cout << str.substr(0, 8) << "." << SKY500 << "|" << RESET;
+            std::cout << str.substr(0, 9) << "." << SKY500 << "|" << RESET;
         } else {
             for (int i = 0; i < (10 - (int)str.length()); i++) {
                 std::cout << " ";
