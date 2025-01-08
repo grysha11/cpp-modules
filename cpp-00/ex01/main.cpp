@@ -117,3 +117,5 @@ int main() {
 
     return 0;
 }
+
+//check the which order add the contact when the amount is 8
