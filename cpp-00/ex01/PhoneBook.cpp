@@ -1,14 +1,12 @@
 #include "PhoneBook.hpp"
 #include "colors.hpp"
+#include <iomanip>
 
 void print_str10(std::string str) {
     if (str.length() > 10) {
             std::cout << str.substr(0, 9) << "." << SKY500 << "|" << RESET;
         } else {
-            for (int i = 0; i < (10 - (int)str.length()); i++) {
-                std::cout << " ";
-            }
-            std::cout << str;
+            std::cout << std::setw(10) << str;
             std::cout << SKY500 << "|" << RESET;
         }
 }
@@ -39,7 +37,7 @@ void PhoneBook::displayPhoneBook() {
     std::cout << SKY500 << "|" << RESET << "     Index|First Name| Last Name|  Nickname" SKY500 "|\n" << RESET;
     for (int i = 0; i < 8; i++) {
         if (!this->_contacts[i].getFirstName().empty()) {
-            std::cout << SKY500 << "|" << RESET << "         " << i + 1 << SKY500 "|" << RESET;
+            std::cout << SKY500 << "|" << RESET << std::setw(10) << i + 1 << SKY500 "|" << RESET;
             print_str10(this->_contacts[i].getFirstName());
             print_str10(this->_contacts[i].getLastName());
             print_str10(this->_contacts[i].getNickname());
