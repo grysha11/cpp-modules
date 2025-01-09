@@ -7,18 +7,17 @@ int main(int ac, char **av) {
         return 1;
     }
 
-    for (size_t i = 1; av[i]; i++) {
-        for (size_t j = 0; av[i][j]; j++) {
-            if (islower(av[i][j])) {
-                std::cout << (char)toupper(av[i][j]);
-            } else {
-                std::cout << av[i][j];
-            }
+    for (int i = 1; i < ac; i++) {
+        std::string str(av[i]);
+        for (std::size_t i = 0; i < str.length(); i++) {
+            str[i] = std::toupper(str[i]);
         }
+        if (i != 1) {
+            std::cout << " ";
+        }
+        std::cout << str;
     }
     std::cout << std::endl;
 
     return 0;
 }
-
-//std::toUpper()

@@ -9,41 +9,41 @@ Contact::~Contact() {
 }
 
 std::string Contact::getFirstName() {
-    return _firstName;
+    return this->_firstName;
 }
 
 std::string Contact::getLastName() {
-    return _lastName;
+    return this->_lastName;
 }
 
 std::string Contact::getNickname() {
-    return _nickname;
+    return this->_nickname;
 }
 
 std::string Contact::getSecret() {
-    return _secret;
+    return this->_secret;
 }
 
 std::string Contact::getPhoneNumber() {
-    return _phoneNumber;
+    return this->_phoneNumber;
 }
 
 void Contact::setFirstName(std::string value) {
-    _firstName = value;
+    this->_firstName = value;
 }
 
 void Contact::setLastName(std::string value) {
-    _lastName = value;
+    this->_lastName = value;
 }
 
 void Contact::setNickname(std::string value) {
-    _nickname = value;
+    this->_nickname = value;
 }
 
 void Contact::setSecret(std::string value) {
-    _secret = value;
+    this->_secret = value;
 }
 
 void Contact::setPhoneNumber(std::string value) {
-    _phoneNumber = value;
+    this->_phoneNumber = value;
 }
