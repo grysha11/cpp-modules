@@ -1,4 +1,4 @@
-SRC			= Weapon.cpp HumanA.cpp HumanB.cpp main.cpp
+SRC			= main.cpp
 
 CXX			= @c++
 

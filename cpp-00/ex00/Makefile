@@ -10,9 +10,6 @@ OBJS		= $(SRC:.cpp=.o)
 
 NAME		= megaphone
 
-%.o:		%.cpp
-				$(CXX) $(CXXFLAGS) -c $< -o $@
-
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
@@ -20,7 +17,7 @@ $(NAME):	$(OBJS)
 
 clean:
 				$(RM) $(OBJS)
-
+	
 fclean:		clean
 				$(RM) $(NAME)
 
