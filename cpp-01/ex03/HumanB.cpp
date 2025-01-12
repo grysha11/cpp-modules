@@ -2,6 +2,7 @@
 
 HumanB::HumanB(std::string name) {
     this->_name = name;
+    this->_weapon = NULL;
     std::cout << "HumanB constructor called" << std::endl;
 }
 

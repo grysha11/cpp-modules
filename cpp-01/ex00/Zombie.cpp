@@ -1,11 +1,6 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie() {
-
-}
-
-Zombie::Zombie(std::string init_name) {
-    setName(init_name);
     std::cout << GREEN500 << this->name << ":Zombie constructor called" << RESET << std::endl;
 }
 

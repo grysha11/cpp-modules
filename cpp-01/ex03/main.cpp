@@ -20,3 +20,12 @@ int main()
     }
     return 0;
 }
+
+// int main() {
+//     HumanB grisha("Grisha");
+
+//     grisha.attack();
+
+//     return 0;
+
+// }
