@@ -20,7 +20,7 @@ int resolveCommand(std::string level) {
     if ( level == "INFO" ) return INFO;
     if ( level == "WARNING" ) return WARNING;
     if ( level == "ERROR" ) return ERROR;
-    return -1;
+    return 4;
 }
 
 void Harl::complain(std::string level) {
@@ -45,12 +45,8 @@ void Harl::complain(std::string level) {
 
 void Harl::harlFilter(std::string level) {
     int i = resolveCommand(level);
-    if (i == -1) {
-        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-        return;
-    }
 
-    while (i <= ERROR) {
+    while (i <= 4) {
         switch(i) {
             case DEBUG: this->debug();
                 break;
@@ -60,6 +56,8 @@ void Harl::harlFilter(std::string level) {
                 break;
             case ERROR: this->error();
                 break;
+            default:
+                std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
         }
         i++;
     }

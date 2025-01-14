@@ -4,8 +4,9 @@
 
 class Zombie {
     private:
-        std::string name;
+        std::string _name;
     public:
+        Zombie(std::string name);
         Zombie();
         ~Zombie();
         void setName(std::string name);

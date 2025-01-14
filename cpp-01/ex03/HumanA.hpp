@@ -9,8 +9,8 @@ class HumanA {
         std::string _name;
         Weapon& _weapon;
     public:
-            HumanA(std::string name, Weapon& weapon) : _name(name), _weapon(weapon) {
-        std::cout << "HumanA constructor called" << std::endl;
+        HumanA(std::string name, Weapon& weapon) : _name(name), _weapon(weapon) {
+            std::cout << "HumanA constructor called" << std::endl;
         }
         ~HumanA();
         void attack();
