@@ -6,12 +6,12 @@ Fixed::Fixed() {
 }
 
 Fixed::Fixed(const int value) {
-    this->_value = value;
+    this->_value = value * (1 << _bits);
     std::cout << "Int constructor called" << std::endl;
 }
 
 Fixed::Fixed(const float value) {
-    this->_value = static_cast<float>(value);
+    this->_value = roundf(value * (1 << _bits));
     std::cout << "Float constructor called" << std::endl;
 }
 
@@ -40,10 +40,15 @@ void Fixed::setRawBits(int const raw) {
     this->_value = raw;
 }
 
-int Fixed::toInt(void) {
-    return this->_value >> this->_bits;
+int Fixed::toInt(void) const{
+    return (this->_value) / (1 << this->_bits);
 }
 
-float Fixed::toFloat(void) {
+float Fixed::toFloat(void) const{
     return static_cast<float>(this->_value) / (1 << this->_bits);
+}
+
+std::ostream& operator<<(std::ostream& os, const Fixed& other) {
+    os << other.toFloat();
+    return os;
 }
