@@ -23,35 +23,35 @@ ClapTrap& ClapTrap::operator = (const ClapTrap& other) {
         this->_energy = other._energy;
         this->_damage = other._damage;
     }
-    std::cout << "Assignment ClapTrap operator called" << std::endl;
+    std::cout << "Copy assignment ClapTrap operator called" << std::endl;
     return *this;
 }
 
 void ClapTrap::attack(const std::string &target) {
     if (this->_hp <= 0) {
-        std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
+        std::cout << this->_name << " is dead" << std::endl;
         return ;
     }
     if (this->_energy) {
-        std::cout << "ClapTrap " << this->_name << " attacks " << target << ", causing " << this->_damage << " points of damage!" << std::endl;
+        std::cout << this->_name << " attacks " << target << ", causing " << this->_damage << " points of damage!" << std::endl;
         this->_energy--;
     }
-    std::cout << "ClapTrap " << this->_name << " don't have energy..." << std::endl;
+    std::cout << this->_name << " don't have energy..." << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount) {
     if (this->_hp <= 0) {
-        std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
+        std::cout << this->_name << " is dead" << std::endl;
         return ;
     }
-    std::cout << "ClapTrap " << this->_name << " took " << amount << " damage points" << std::endl;
+    std::cout << this->_name << " took " << amount << " damage points" << std::endl;
     this->_hp -= amount;
     if (this->_hp <= 0) {
-        std::cout << "ClapTrap " << this->_name << " died from powerfull atack :(" << std::endl;
+        std::cout << this->_name << " died from powerfull atack :(" << std::endl;
     }
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
-    std::cout << "ClapTrap " << this->_name << " repaired " << amount << " health points" << std::endl;
+    std::cout << this->_name << " repaired " << amount << " health points" << std::endl;
     this->_hp += amount;
 }

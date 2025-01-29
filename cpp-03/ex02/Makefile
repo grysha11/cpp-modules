@@ -1,4 +1,4 @@
-SRC			= ClapTrap.cpp ScavTrap.cpp main.cpp
+SRC			= ClapTrap.cpp ScavTrap.cpp FragTrap.cpp main.cpp
 
 CXX			= @c++
 
@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= ScavTrap
+NAME		= FragTrap
 
 %.o:		%.cpp
 				$(CXX) $(CXXFLAGS) -c $< -o $@
