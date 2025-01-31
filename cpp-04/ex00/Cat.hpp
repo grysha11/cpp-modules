@@ -12,14 +12,4 @@ class Cat : public Animal {
         void makeSound(void) const;
 };
 
-class WrongCat : public WrongAnimal {
-    public:
-        WrongCat();
-        WrongCat(std::string type);
-        WrongCat(const WrongCat& other);
-        ~WrongCat();
-        WrongCat& operator = (const WrongCat& other);
-        void makeSound(void) const;
-};
-
 #endif
