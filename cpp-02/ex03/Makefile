@@ -1,4 +1,4 @@
-SRC			= Fixed.cpp main.cpp
+SRC			= Fixed.cpp main.cpp Point.cpp
 
 CXX			= @c++
 

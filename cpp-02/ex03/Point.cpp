@@ -16,10 +16,6 @@ Point::~Point() {
 
 }
 
-Point& Point::operator = (const Point& other) {
-    return *this;
-}
-
 Fixed Point::getX(void) const {
     return this->_x;
 }
@@ -34,9 +30,9 @@ bool bsp(Point const a, Point const b, Point const c, Point const point) {
 
     bool s_ab = (b.getX() - a.getX()) * as_y - (b.getY() - a.getY()) * as_x > 0;
 
-    if ((c.getX() - a.getX()) * as_y - (c.getY() - a.getY()) * as_x > 0 == s_ab) 
+    if (((c.getX() - a.getX()) * as_y - (c.getY() - a.getY()) * as_x > 0) == s_ab) 
         return false;
-    if ((c.getX() - b.getX()) * (point.getY() - b.getY()) - (c.getY() - b.getY())*(point.getX() - b.getX()) > 0 != s_ab) 
+    if (((c.getX() - b.getX()) * (point.getY() - b.getY()) - (c.getY() - b.getY())*(point.getX() - b.getX()) > 0) != s_ab) 
         return false;
     return true;
 }
