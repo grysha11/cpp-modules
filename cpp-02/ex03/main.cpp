@@ -1,22 +1,26 @@
 #include "Fixed.hpp"
 #include "Point.hpp"
 
-int main( void ) {
-    Point p1(Fixed(1), Fixed(1));
-    Point p2(Fixed(2), Fixed(3));
-    Point p3(Fixed(3), Fixed(1));
-    Point p4(Fixed(2), Fixed(2));
-
-    bool result = bsp(p1, p2, p3, p4);
-    if (result) {
-        std::cout << "p4 is inside of triangle p1, p2, p3" << std::endl;
+void printRes(bool check) {
+    if (check) {
+        std::cout << "point is inside of a triangle" << std::endl;
     }
+    std::cout << "point is outside of a triangle" << std::endl;
+}
 
-    Point p5(Fixed(0), Fixed(0));
-    result = bsp(p1, p2, p3, p5);
-    if (!result) {
-        std::cout << "p5 is not inside of triangle p1, p2, p3" << std::endl;
-    }
+int main() {
+    Point A(Fixed(0), Fixed(0));
+    Point B(Fixed(5), Fixed(0));
+    Point C(Fixed(0), Fixed(5));
+
+    Point inside(Fixed(2), Fixed(2));
+    printRes(bsp(A, B, C, inside));
+    Point onEdge(Fixed(2.5f), Fixed(0));
+    printRes(bsp(A, B, C, onEdge));
+    Point atVertex(Fixed(0), Fixed(0));
+    printRes(bsp(A, B, C, atVertex));
+    Point outside(Fixed(6), Fixed(6));
+    printRes(bsp(A, B, C, outside));
 
     return 0;
 }

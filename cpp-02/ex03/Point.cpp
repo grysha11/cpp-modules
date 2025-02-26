@@ -25,14 +25,16 @@ Fixed Point::getY(void) const {
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point) {
-    Fixed as_x = point.getX() - a.getX();
-    Fixed as_y = point.getY() - a.getY();
+    Fixed full_area = (a.getX() * (b.getY() - c.getY()) + b.getX() * (c.getY() - a.getY()) + c.getX() * (a.getY() - b.getY())) / Fixed(2.0f);
+    //full area of triangle using determinant formula
 
-    bool s_ab = (b.getX() - a.getX()) * as_y - (b.getY() - a.getY()) * as_x > 0;
+    Fixed area1 = (point.getX() * (b.getY() - c.getY()) + b.getX() * (c.getY() - point.getY()) + c.getX() * (point.getY() - b.getY())) / Fixed(2.0f);
+    Fixed area2 = (a.getX() * (point.getY() - c.getY()) + point.getX() * (c.getY() - a.getY()) + c.getX() * (a.getY() - point.getY())) / Fixed(2.0f);
+    Fixed area3 = (a.getX() * (b.getY() - point.getY()) + b.getX() * (point.getY() - a.getY()) + point.getX() * (a.getY() - b.getY())) / Fixed(2.0f);
+    //sub-areas formed by the point
 
-    if (((c.getX() - a.getX()) * as_y - (c.getY() - a.getY()) * as_x > 0) == s_ab) 
-        return false;
-    if (((c.getX() - b.getX()) * (point.getY() - b.getY()) - (c.getY() - b.getY())*(point.getX() - b.getX()) > 0) != s_ab) 
-        return false;
-    return true;
+    if ((area1 > 0 && area2 > 0 && area3 > 0) && (area1 + area2 + area3 == full_area)) {
+        return true;
+    }
+    return false;
 }
