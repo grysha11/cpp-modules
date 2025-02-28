@@ -20,6 +20,7 @@ ClapTrap& ClapTrap::operator = (const ClapTrap& other) {
     if (this != &other) {
         this->_name = other._name;
         this->_hp = other._hp;
+        this->_max_hp = other._max_hp;
         this->_energy = other._energy;
         this->_damage = other._damage;
     }

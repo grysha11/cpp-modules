@@ -5,10 +5,10 @@
 
 int main() {
     DiamondTrap a("Friend1");
-    a.attack("ENEMY!!!");
-    a.takeDamage(10);
-    a.beRepaired(2);
-    a.highFivesGuys();
+    // a.attack("ENEMY!!!");
+    // a.takeDamage(10);
+    // a.beRepaired(2);
+    // a.highFivesGuys();
     a.WhoAmI();
 
     return 0;

@@ -11,6 +11,7 @@ DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), Scav
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other) : ClapTrap(other), ScavTrap(other), FragTrap(other), _name(other._name) {
+    ScavTrap::resetEnergy();
     std::cout << "DiamondTrap copy constructor called" << std::endl;
 }
 
@@ -30,6 +31,7 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
 }
 
 void DiamondTrap::WhoAmI(void) const {
+    //std::cout << "name: " << this->_name << " hp: " << this->_hp << " damage: " << this->_damage << " energy: " << this->_energy << " max hp: " << this->_max_hp << std::endl;
     std::cout << "This DiamondTrap has names: " << _name << ", " << ClapTrap::_name << std::endl;
 }
 

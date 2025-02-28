@@ -16,7 +16,7 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name) {
     std::cout << "Modifed FragTrap constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(ClapTrap& other) : ClapTrap(other) {
+FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
     this->_hp = 100;
     this->_max_hp = 100;
     this->_energy = 100;

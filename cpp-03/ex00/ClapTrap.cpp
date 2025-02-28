@@ -8,7 +8,7 @@ ClapTrap::ClapTrap(std::string name) : _name(name), _hp(10), _energy(10), _damag
     std::cout << "Modifed ClapTrap constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(ClapTrap& other) : _name(other._name), _hp(10), _energy(10), _damage(0), _max_hp(10) {
+ClapTrap::ClapTrap(const ClapTrap& other) : _name(other._name), _hp(10), _energy(10), _damage(0), _max_hp(10) {
     std::cout << "Copy constructor ClapTrap called" << std::endl;
 }
 

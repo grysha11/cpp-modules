@@ -4,7 +4,7 @@
 #include <iostream>
 
 class ClapTrap {
-    private:
+    protected:
         std::string _name;
         int _hp;
         int _energy;
@@ -13,7 +13,7 @@ class ClapTrap {
     public:
         ClapTrap();
         ClapTrap(std::string name);
-        ClapTrap(ClapTrap& other);
+        ClapTrap(const ClapTrap& other);
         ~ClapTrap();
         ClapTrap& operator = (const ClapTrap& other);
         void attack(const std::string &target);

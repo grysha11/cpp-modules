@@ -16,7 +16,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
     std::cout << "Modifed ScavTrap constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(ClapTrap& other) : ClapTrap(other) {
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
     this->_hp = 100;
     this->_max_hp = 100;
     this->_energy = 50;
