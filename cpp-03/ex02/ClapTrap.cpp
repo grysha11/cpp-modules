@@ -1,14 +1,14 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : _name(""), _hp(10), _energy(10), _damage(0) {
+ClapTrap::ClapTrap() : _name(""), _hp(10), _energy(10), _damage(0), _max_hp(10) {
     std::cout << "Default ClapTrap constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hp(10), _energy(10), _damage(0) {
+ClapTrap::ClapTrap(std::string name) : _name(name), _hp(10), _energy(10), _damage(0), _max_hp(10) {
     std::cout << "Modifed ClapTrap constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(ClapTrap& other) : _name(other._name), _hp(10), _energy(10), _damage(0) {
+ClapTrap::ClapTrap(ClapTrap& other) : _name(other._name), _hp(10), _energy(10), _damage(0), _max_hp(10) {
     std::cout << "Copy constructor ClapTrap called" << std::endl;
 }
 
@@ -52,6 +52,11 @@ void ClapTrap::takeDamage(unsigned int amount) {
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
+    if (this->_hp == this->_max_hp) {
+        std::cout << this->_name << "have full hp" << std::endl;
+    }
     std::cout << this->_name << " repaired " << amount << " health points" << std::endl;
-    this->_hp += amount;
+    if (this->_hp > this->_max_hp) {
+        this->_hp = this->_max_hp;
+    }
 }

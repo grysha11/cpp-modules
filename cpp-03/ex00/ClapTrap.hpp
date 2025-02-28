@@ -9,6 +9,7 @@ class ClapTrap {
         int _hp;
         int _energy;
         int _damage;
+        int _max_hp;
     public:
         ClapTrap();
         ClapTrap(std::string name);
