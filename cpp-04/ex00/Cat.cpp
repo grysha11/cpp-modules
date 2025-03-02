@@ -16,7 +16,6 @@ Cat::Cat(const Cat& other) : Animal(other) {
 }
 
 Cat::~Cat() {
-    Animal::~Animal();
     std::cout << "Cat default destructor called" << std::endl;
 }
 

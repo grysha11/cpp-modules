@@ -3,11 +3,23 @@
 #include "WrongCat.hpp"
 
 int main() {
-    // const Animal* j = new Dog();
-    const Animal* i = new Cat();
+    Animal* animals[10];
 
-    // delete j;
-    delete i;
+    for (size_t i = 0; i < 10; i++) {
+        if (i < 5) {
+            animals[i] = new Cat("mewmewmewmew");
+        } else {
+            animals[i] = new Dog("wooofowofowofofwof");
+        }
+    }
+
+    for (size_t i = 0; i < 10; i++) {
+        animals[i]->makeSound();
+    }
+
+    for (size_t i = 0; i < 10; i++) {
+        delete animals[i];
+    }
 
     return 0;
 }

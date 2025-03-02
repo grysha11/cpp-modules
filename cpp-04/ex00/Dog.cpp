@@ -16,7 +16,6 @@ Dog::Dog(const Dog& other) : Animal(other) {
 }
 
 Dog::~Dog() {
-    Animal::~Animal();
     std::cout << "Dog default destructor called" << std::endl;
 }
 
