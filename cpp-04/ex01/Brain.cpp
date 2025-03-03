@@ -16,7 +16,7 @@ Brain::Brain(std::string idea) {
 
 Brain::Brain(const Brain& other) {
     if (this != &other) {
-        for (size_t i = 0; i < this->_ideas->length(); i++) {
+        for (size_t i = 0; i < 100; i++) {
             this->_ideas[i] = other._ideas[i];
         }
     }
@@ -29,10 +29,25 @@ Brain::~Brain() {
 
 Brain& Brain::operator = (const Brain& other) {
     if (this != &other) {
-        for (size_t i = 0; i < this->_ideas->length(); i++) {
+        for (size_t i = 0; i < 100; i++) {
             this->_ideas[i] = other._ideas[i];
         }
     }
     std::cout << "Brain copy assignment operator called" << std::endl;
     return *this;
 }
+
+void Brain::setIdeas(std::string idea) {
+    for (size_t i = 0; i < 100; i++) {
+        this->_ideas[i] = idea;
+    }
+}
+
+std::string Brain::getIdea(int i) const {
+    if (i >= 0 && i < 100) {
+        return this->_ideas[i];
+    } else {
+        return this->_ideas[0];
+    }
+}
+

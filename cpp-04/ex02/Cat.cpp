@@ -1,21 +1,23 @@
 #include "Cat.hpp"
 
-Cat::Cat() : Animal("Cat"), _brain(new Brain("random cat thoughts")) {
-    std::cout << "Cat default constructor called" << std::endl;
+Cat::Cat() : Animal("no_name"), _brain(new Brain("random cat thoughts")) {
+    this->_type = "Cat";
+    std::cout << "Cat " << this->_name << " default constructor called" << std::endl;
 }
 
-Cat::Cat(std::string ideas) : Animal("Cat"), _brain(new Brain(ideas)) {
-    std::cout << "Cat modifed constructor called" << std::endl;
+Cat::Cat(std::string name) : Animal(name), _brain(new Brain("random cat thoughts")) {
+    this->_type = "Cat";
+    std::cout << "Cat " << this->_name << " modifed constructor called" << std::endl;
 }
 
 Cat::Cat(const Cat& other) : Animal(other) {
-    this->_brain = other._brain;
-    std::cout << "Cat copy constructor called" << std::endl;
+    this->_brain = new Brain(*other._brain);
+    std::cout << "Cat " << this->_name << " deep copy constructor called" << std::endl;
 }
 
 Cat::~Cat() {
     delete this->_brain;
-    std::cout << "Cat default destructor called" << std::endl;
+    std::cout << "Cat " << this->_name << " default destructor called" << std::endl;
 }
 
 Cat& Cat::operator = (const Cat& other) {
@@ -26,10 +28,18 @@ Cat& Cat::operator = (const Cat& other) {
         }
         this->_brain = new Brain(*other._brain);
     }
-    std::cout << "Cat deep copy assignment operator called" << std::endl;
+    std::cout << "Cat " << this->_name << " deep copy assignment operator called" << std::endl;
     return *this;
 }
 
 void Cat::makeSound(void) const {
-    std::cout << "Cat makes sound: mew mew" << std::endl;
+    std::cout << "Cat " << this->_name << " makes sound: mew mew" << std::endl;
+}
+
+std::string Cat::getIdea(int i) {
+    return this->_brain->getIdea(i);
+}
+
+void Cat::setIdea(std::string idea) {
+    this->_brain->setIdeas(idea);
 }

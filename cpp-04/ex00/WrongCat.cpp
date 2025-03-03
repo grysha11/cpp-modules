@@ -5,13 +5,14 @@ WrongCat::WrongCat() : WrongAnimal() {
     std::cout << "WrongCat default constructor called" << std::endl;
 }
 
-WrongCat::WrongCat(std::string type) : WrongAnimal(type) {
+WrongCat::WrongCat(std::string name) : WrongAnimal(name) {
     this->_type = "WrongCat";
     std::cout << "WrongCat modifed constructor called" << std::endl;
 }
 
 WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other) {
     this->_type = other._type;
+    this->_name = other._name;
     std::cout << "WrongCat copy constructor called" << std::endl;
 }
 
