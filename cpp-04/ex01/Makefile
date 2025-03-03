@@ -2,7 +2,7 @@ SRC			= Animal.cpp Brain.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp main.c
 
 CXX			= @c++
 
-CXXFLAGS	= -Wall -Werror -Wextra -std=c++98 -g
+CXXFLAGS	= -Wall -Werror -Wextra -std=c++98
 
 RM			= @rm -f
 
