@@ -1,4 +1,4 @@
-SRC			= Bureaucrat.cpp main.cpp
+SRC			= Bureaucrat.cpp Form.cpp main.cpp
 
 CXX			= @c++
 
@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= Bureaucrat
+NAME		= poly
 
 %.o:		%.cpp
 				$(CXX) $(CXXFLAGS) -c $< -o $@
