@@ -5,7 +5,11 @@ Form::Form() : _name("No-name"), _signed(false), _toSign(148), _toExec(148) {
 }
 
 Form::Form(const std::string name, const int toSign, const int toExec) : _name(name), _signed(false), _toSign(toSign), _toExec(toExec) {
-
+    if (toSign < 1 || toExec < 1) {
+        throw Form::GradeTooLowExcepetion();
+    } else if (toSign > 150 || toExec > 150) {
+        throw Form::GradeTooHighExcepetion();
+    }
 }
 
 Form::~Form() {
@@ -73,5 +77,6 @@ const char* Form::AlreadySignedException::what() const throw() {
 }
 
 std::ostream &operator <<(std::ostream &os, const Form &i) {
+    os << i.getName() << ", form grade to sign " << i.getToSign() << ", grade to execute " << i.getToExec() << " and form is signed: " << i.getSigned() << "." << std::endl;
     return os;
 }
