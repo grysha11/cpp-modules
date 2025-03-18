@@ -58,10 +58,12 @@ void Form::setToSign(bool toSign, int burGrade) {
 void Form::beSigned(const Bureaucrat& bur) {
     try {
         this->setToSign(true, bur.getGrade());
-        std::cout << bur << "Trying to sign the form xixi" << std::endl;
-    } catch (char *msg) {
-        std::cerr << bur.getName() << "couldn't sign form because " << msg << std::endl;
+        std::cout << bur.getName() << " Trying to sign the form xixi" << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << bur.getName() << "couldn't sign form because " << e.what() << std::endl;
+        return ;
     }
+    std::cout << this->getName() << " form was signed by " << bur.getName() << "." << std::endl;
 }
 
 const char* Form::GradeTooHighExcepetion::what() const throw() {
@@ -77,6 +79,6 @@ const char* Form::AlreadySignedException::what() const throw() {
 }
 
 std::ostream &operator <<(std::ostream &os, const Form &i) {
-    os << i.getName() << ", form grade to sign " << i.getToSign() << ", grade to execute " << i.getToExec() << " and form is signed: " << i.getSigned() << "." << std::endl;
+    os << i.getName() << ", form grade to sign " << i.getToSign() << ", grade to execute " << i.getToExec() << " and form is signed: " << i.getSigned() << ".";
     return os;
 }

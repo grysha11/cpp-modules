@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= poly
+NAME		= insane
 
 %.o:		%.cpp
 				$(CXX) $(CXXFLAGS) -c $< -o $@
