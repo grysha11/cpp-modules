@@ -78,6 +78,10 @@ const char* AForm::AlreadySignedException::what() const throw() {
     return "AForm is already signed";
 }
 
+const char* AForm::UnsignedException::what() const throw() {
+    return "AForm is not signed";
+}
+
 std::ostream &operator <<(std::ostream &os, const AForm &i) {
     os << i.getName() << ", AForm grade to sign " << i.getToSign() << ", grade to execute " << i.getToExec() << " and AForm is signed: " << i.getSigned() << ".";
     return os;

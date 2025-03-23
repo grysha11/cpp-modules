@@ -1,6 +1,9 @@
 #ifndef AForm_HPP
 #define AForm_HPP
 #include "Bureaucrat.hpp"
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 class AForm {
     private:
@@ -30,6 +33,10 @@ class AForm {
                 virtual const char* what() const throw();
         };
         class AlreadySignedException : public std::exception {
+            public:
+                virtual const char* what() const throw();
+        };
+        class UnsignedException : public std::exception {
             public:
                 virtual const char* what() const throw();
         };
