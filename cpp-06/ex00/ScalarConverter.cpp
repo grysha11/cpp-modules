@@ -1,66 +1,99 @@
 #include "ScalarConverter.hpp"
 
-bool isChar(const std::string& input) {
-    if (input.size() == 1 && !isdigit(input[0])) {
-        return true;
+char ScalarConverter::convChar(const std::string& input) {
+    std::stringstream ss(input);
+    int i;
+    if (!(ss >> i) || !ss.eof()) {
+        throw std::invalid_argument("Invalid argument");
     }
-    return false;
+    if (i < 32 || i > 126) {
+        throw std::invalid_argument("Non-displayable");
+    }
+    char c = i;
+    return c;
 }
 
-bool isInt(const std::string& input) {
-    size_t i = 0;
+float ScalarConverter::convFloat(const std::string& input) {
+    std::stringstream ss(input);
+    float f;
+    if (!(ss >> f) || !ss.eof()) {
+        throw std::invalid_argument("Invalid argument");
+    }
+    return f;
+}
 
-    if (input[i] == '+' || input[i] == '+') i++;
+double ScalarConverter::convDouble(const std::string& input) {
+    std::stringstream ss(input);
+    double d;
+    if (!(ss >> d) || !ss.eof()) {
+        throw std::invalid_argument("Invalid argument");
+    }
+    return d;
+}
 
-    for (; i < input.size(); i++) {
+bool ScalarConverter::isInt(const std::string& input) {
+    int i = 0;
+
+    if (input[i] == '-' || input[i] == '+') i++;
+    for (; i < input.length(); i++) {
         if (!isdigit(input[i])) {
             return false;
         }
     }
-
     return true;
 }
 
-bool isFloat(const std::string& input) {
-    if (input == "nanf" || input == "+inff" || input == "-inff") return true;
-
-    size_t i = 0, dotC = 0, eC = 0;
-
-    if (input[i] == '+' || input[i] == '-') i++;
-
-    for (; i < input.length(); i++) {
-        if (input[i] == '.' && i != input.length() - 1 && i != 0 && (i == 1 && (input[0] != '-' || input[1] != '+'))) dotC++;
-        else if (input[i] == 'e' || input[i] == 'E') {
-            eC++;
-            if (eC > 1 || i == 0 || i == input.length() - 1) return false;
-            if (input[i + 1] == '-' || input[i] == '+') i++;
-        } else if (input[i] == 'f' && i == input.length() - 1) i++;
-        else if (!isdigit(input[i])) return false;
+void ScalarConverter::printChar(const std::string& input) {
+    std::cout << "char: ";
+    try {
+        if (input.length() == 1 && !isdigit(input[0])) {
+            std::cout << "'" << input[0] << "'" << std::endl;
+        }
+        char c = convChar(input);
+        std::cout << "'" << input[0] << "'" << std::endl;
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
     }
-    return dotC <= 1 && eC <= 1;
 }
 
-bool isDouble(const std::string& input) {
-    if (input == "nan" || input == "+inf" || input == "-inf") return true;
-
-    size_t i = 0, dotC = 0, eC = 0;
-
-    if (input[i] == '+' || input[i] == '-') i++;
-
-    for (; i < input.length(); i++) {
-        if (input[i] == '.' && i != input.length() - 1 && i != 0 && (i == 1 && (input[0] != '-' || input[1] != '+'))) dotC++;
-        else if (input[i] == 'e' || input[i] == 'E') {
-            eC++;
-            if (eC > 1 || i == 0 || i == input.length() - 1) return false;
-            if (input[i + 1] == '-' || input[i] == '+') i++;
-        }
-        else if (!isdigit(input[i])) return false;
+void ScalarConverter::printInt(const std::string& input) {
+    std::cout << "int: ";
+    if (!isInt(input)) {
+        std::cout << "Impossible" << std::endl;
+        return;
     }
-    return dotC <= 1 && eC <= 1;
+    try {
+        int i = std::atoi(input.c_str());
+        std::cout << i << std::endl;
+    } catch (std::exception& e) {
+        std::cout << "Impossible" << std::endl;
+    }
+}
+
+void ScalarConverter::printFloat(const std::string& input) {
+    std::cout << "float: ";
+    try {
+        float f = convFloat(input);
+        std::cout << f << "f" << std::endl;
+
+    } catch (std::exception& e) {
+        std::cout << "Impossible" << std::endl;
+    }
+}
+
+void ScalarConverter::printDouble(const std::string& input) {
+    std::cout << "double: ";
+    try {
+        double d = convDouble(input);
+        std::cout << d << std::endl;
+    } catch (std::exception& e) {
+        std::cout << "Impossible" << std::endl;
+    }
 }
 
 void ScalarConverter::convert(const std::string& literal) {
-    double num;
-
-    
+    printChar(literal);
+    printInt(literal);
+    printFloat(literal);
+    printDouble(literal);
 }
