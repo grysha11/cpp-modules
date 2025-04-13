@@ -9,17 +9,14 @@ class Array {
         unsigned int _amount;
         T* _elements;
     public:
-        Array() : _amount(0) {
-            this->_elements = new T[0];
-        }
-        Array(unsigned int amount) : _amount(amount) {
-            this->_elements = new[] T[this->_amount];
-        }
+        Array();
+        Array(unsigned int amount);
         Array(const Array& other);
-        Array& operator=(const Array& other);
+        Array& operator = (const Array& other);
         ~Array();
-        T& operator[](unsigned int i);
-        const T& operator[](unsigned int i) const;
+        unsigned int size(void);
+        T& operator [] (unsigned int i);
+        const T& operator [] (unsigned int i) const;
 };
 
 #include "Array.tpp"

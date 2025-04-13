@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= iter
+NAME		= array
 
 %.o:		%.cpp
 				$(CXX) $(CXXFLAGS) -c $< -o $@
