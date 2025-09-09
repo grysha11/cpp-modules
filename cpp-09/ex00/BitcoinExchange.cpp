@@ -107,12 +107,24 @@ bool BitcoinExchange::isValidDate(std::string date) {
 
 void BitcoinExchange::parseData() {
     std::fstream f(this->_dataFile);
+    std::string line;
 
     if (!f.is_open()) {
         throw std::runtime_error("Error: could not open data file");
     }
 
-
+    while (getline(f, line)) {
+        size_t pos = line.find(',');
+        if (pos == std::string::npos) {
+            std::cerr << "Error: wrong format of data => " << line << std::endl;
+        }
+        std::string date = line.substr(0, pos);
+        std::string val = line.substr(pos + 1);
+        if (isValidDate(date) && isValidNum(val)) {
+            double value = std::atof(val.c_str());
+            this->_data[date] = value;
+        }
+    }
 }
 
 BitcoinExchange::BitcoinExchange(const std::string& inputFile) : _dataFile("data.csv"), _inputFile(inputFile) {
