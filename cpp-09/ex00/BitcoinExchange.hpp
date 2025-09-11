@@ -7,17 +7,23 @@
 #include <fstream>
 #include <string>
 
+enum num_flag {
+    DATA,
+    INPUT,
+};
+
 class BitcoinExchange {
     private:
         std::map<std::string, double> _data;
-        std::map<std::string, double> _input;
         const std::string _dataFile;
         const std::string _inputFile;
-        bool isValidNum(std::string num);
+        bool isValidNum(std::string num, num_flag flag);
         bool isValidDate(std::string date);
         bool isValidDateNumber(std::string num);
-        void parseData();
+        bool parseData();
+        void parseInput();
     public:
+    
         BitcoinExchange(const std::string& inputFile);
         ~BitcoinExchange();
 };

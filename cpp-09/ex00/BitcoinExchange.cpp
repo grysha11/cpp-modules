@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-bool BitcoinExchange::isValidNum(std::string num) {
+bool BitcoinExchange::isValidNum(std::string num, num_flag flag) {
     bool isComa = false;
     size_t c_afterComa = 0;
     char* pEnd;
@@ -30,9 +30,11 @@ bool BitcoinExchange::isValidNum(std::string num) {
         }
     }
 
-    if (isComa && c_afterComa > 2) {
-        std::cerr << "Error: decimal part is too big => " << num << std::endl;
-        return false;
+    if (flag == DATA) {
+        if (isComa && c_afterComa > 2) {
+            std::cerr << "Error: decimal part is too big => " << num << std::endl;
+            return false;
+        }
     }
 
     if (*pEnd != '\0') {
@@ -45,7 +47,12 @@ bool BitcoinExchange::isValidNum(std::string num) {
         return false;
     }
 
-    //idk how to check for super big num
+    if (flag == INPUT) {
+        if (res > 1000) {
+            std::cerr << "Error: number is too big => " << num << std::endl;
+            return false;
+        }
+    }
 
     return true;
 }
@@ -56,6 +63,7 @@ bool BitcoinExchange::isValidDateNumber(std::string num) {
             return false;
         }
     }
+    return true;
 }
 
 bool BitcoinExchange::isValidDate(std::string date) {
@@ -105,12 +113,18 @@ bool BitcoinExchange::isValidDate(std::string date) {
     return true;
 }
 
-void BitcoinExchange::parseData() {
-    std::fstream f(this->_dataFile);
+bool BitcoinExchange::parseData() {
+    std::fstream f(this->_dataFile.c_str());
     std::string line;
 
     if (!f.is_open()) {
         throw std::runtime_error("Error: could not open data file");
+    }
+
+    getline(f, line);
+    if (line != "date,exchange_rate") {
+        std::cerr << "Not complete data file => Missing \"date,exchange_rate\" line" << std::endl;
+        return false;
     }
 
     while (getline(f, line)) {
@@ -120,15 +134,59 @@ void BitcoinExchange::parseData() {
         }
         std::string date = line.substr(0, pos);
         std::string val = line.substr(pos + 1);
-        if (isValidDate(date) && isValidNum(val)) {
+        if (this->isValidDate(date) && this->isValidNum(val, DATA)) {
             double value = std::atof(val.c_str());
             this->_data[date] = value;
+        } else {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void BitcoinExchange::parseInput() {
+    std::fstream f(this->_inputFile.c_str());
+    std::string line;
+
+    if (!f.is_open()) {
+        throw std::runtime_error("Error: could not open input file");
+    }
+
+    while (getline(f, line)) {
+        size_t pos = line.find("|");
+        if (pos == std::string::npos) {
+            std::cerr << "Error wrong format of input => " << line << std::endl;
+        }
+        std::string date = line.substr(0, pos);
+        std::string val = line.substr(pos + 1);
+        while (!date.empty() && std::isspace(date[date.size() - 1])) {
+            date.erase(date.size() - 1);
+        }
+        while (!val.empty() && std::isspace(val[0])) {
+            val.erase(0, 1);
+        }
+        if (this->isValidDate(date) && this->isValidNum(val, INPUT)) {
+            double value = std::atof(val.c_str());
+
+            std::map<std::string, double>::iterator it = _data.find(date);
+            if (it == this->_data.end()) {
+                it = this->_data.lower_bound(date);
+                if (it == this->_data.begin()) {
+                    std::cerr << "Error: could not find date (too early date) => " << date << std::endl;
+                    continue;
+                }
+                --it;
+            }
+            std::cout << date << " => " << value << " = " << value * it->second << std::endl;
         }
     }
 }
 
 BitcoinExchange::BitcoinExchange(const std::string& inputFile) : _dataFile("data.csv"), _inputFile(inputFile) {
-    //hehe
+    if (parseData()) {
+        parseInput();
+    }
 }
 
 BitcoinExchange::~BitcoinExchange() {
