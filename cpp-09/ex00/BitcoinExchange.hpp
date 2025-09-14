@@ -23,7 +23,6 @@ class BitcoinExchange {
         bool parseData();
         void parseInput();
     public:
-    
         BitcoinExchange(const std::string& inputFile);
         ~BitcoinExchange();
 };
