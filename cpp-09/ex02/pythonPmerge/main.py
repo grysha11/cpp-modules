@@ -1,6 +1,10 @@
+import sys
+
 def jacobsthal(n):
     if n == 0:
         return 0
+    if n == 1:
+        return 1
     return jacobsthal(n - 1) + 2 * jacobsthal(n - 2)
 
 def FordJohnson(arr):
@@ -10,13 +14,15 @@ def FordJohnson(arr):
     pairs = []
     non_pair = None
 
-    if arr.len() % 2 != 0:
+    if len(arr) % 2 != 0:
         non_pair = arr.pop()
     
     for i in range(0, len(arr), 2):
         pairs.append(sorted([arr[i], arr[i + 1]]))
     
     large_elems = []
+
+    original_pairs = list(pairs)
 
     for p in pairs:
         large_elems.append(p[1])
@@ -27,28 +33,26 @@ def FordJohnson(arr):
     pendulum = []
 
     for s in sorted_large_elems:
-        for p in pairs:
+        for p in original_pairs:
             if p[1] == s:
                 main_chain.append(p[1])
                 pendulum.append(p[0])
-                pairs.remove(p)
+                original_pairs.remove(p)
                 break
 
     if pendulum:
-        main_chain.append(0, pendulum.pop())
+        main_chain.insert(0, pendulum[0])
     
+    last_insert_idx = 1
     jacob_idx = 3
-    while pendulum:
+    while last_insert_idx < len(pendulum):
         k = jacobsthal(jacob_idx)
-        if (k > len(pendulum)):
-            k = len(pendulum)
-        
-        to_insert = pendulum[:k]
-        pendulum = pendulum[k:]
-
-        for val in reversed(to_insert):
-            low, high = 0
-
+        end_idx = min(last_insert_idx + k, len(pendulum))
+        for i in range(end_idx - 1, last_insert_idx - 1, -1):
+            val = pendulum[i]
+            partner = sorted_large_elems[i]
+            limit = main_chain.index(partner)
+            low, high = 0, limit
             while low < high:
                 mid = (low + high) // 2
                 if main_chain[mid] < val:
@@ -56,14 +60,14 @@ def FordJohnson(arr):
                 else:
                     high = mid
             main_chain.insert(low, val)
-    
+        last_insert_idx = end_idx
         jacob_idx += 1
 
     if non_pair is not None:
-        low, high = 0
+        low, high = 0, len(main_chain)
         while low < high:
             mid = (low + high) // 2
-            if main_chain[mid] < val:
+            if main_chain[mid] < non_pair:
                 low = mid + 1
             else:
                 high = mid
@@ -74,8 +78,16 @@ def FordJohnson(arr):
 
 
 def main():
-    sorted_arr = FordJohnson([1, 2, 3, 4])
-    print(sorted_arr)
+    if len(sys.argv) < 2:
+        print("Usage: python3 ford_johnson.py <numbers...>")
+        return
+    arr = [int(x) for x in sys.argv[1:]]
+    to_sort = list(arr)
+    print("Input: ", to_sort)
+    sorted_arr = FordJohnson(to_sort)
+    print("Sorted:", sorted_arr)
+    if sorted_arr == sorted(arr):
+        print("everything is correct")
 
 if __name__ == "__main__":
     main()
