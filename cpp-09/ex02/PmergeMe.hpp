@@ -65,12 +65,28 @@ public:
         return true;
     }
 
+    bool checkForDups() {
+        for (typename Container::iterator it1 = _arr.begin(); it1 != _arr.end(); ++it1) {
+            for (typename Container::iterator it2 = it1 + 1; it2 != _arr.end(); ++it2) {
+                if (*it1 == *it2) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     void parse_av(char **av) {
         for (size_t i = 1; av[i]; i++) {
             if (!is_valid_num(std::string(av[i]))) {
                 break;
             }
             _arr.push_back(std::atoi(av[i]));
+        }
+
+        if (!checkForDups()) {
+            throw std::runtime_error("Found duplicates values");
         }
     }
 
@@ -144,7 +160,7 @@ public:
         Container pendulum;
 
         for (typename Container::iterator it1 = sorted_large_elems.begin(); it1 != sorted_large_elems.end(); ++it1) {
-            for (typename std::vector<Container>::iterator it2 = original_pairs.begin(); it2 != original_pairs.end(); ++it2) {
+            for (typename std::vector<Container>::iterator it2 = original_pairs.begin(); it2 != original_pairs.end();) {
                 if ((*it2)[1] == *it1) {
                     main_chain.push_back((*it2)[1]);
                     pendulum.push_back((*it2)[0]);
@@ -165,7 +181,7 @@ public:
         while (last_insert_idx < static_cast<int>(pendulum.size())) {
             int k = jacobsthal(jacob_idx);
             int end_idx = std::min(static_cast<int>(last_insert_idx + k), static_cast<int>(pendulum.size()));
-            for (int i = end_idx - 1; i >= last_insert_idx - 1; --i) {
+            for (int i = end_idx - 1; i >= last_insert_idx; --i) {
                 int val = pendulum[i];
                 int partner = sorted_large_elems[i];
                 int limit = 0;
