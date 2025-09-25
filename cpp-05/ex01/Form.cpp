@@ -6,9 +6,9 @@ Form::Form() : _name("No-name"), _signed(false), _toSign(148), _toExec(148) {
 
 Form::Form(const std::string name, const int toSign, const int toExec) : _name(name), _signed(false), _toSign(toSign), _toExec(toExec) {
     if (toSign < 1 || toExec < 1) {
-        throw Form::GradeTooLowExcepetion();
-    } else if (toSign > 150 || toExec > 150) {
         throw Form::GradeTooHighExcepetion();
+    } else if (toSign > 150 || toExec > 150) {
+        throw Form::GradeTooLowExcepetion();
     }
 }
 
@@ -60,7 +60,7 @@ void Form::beSigned(const Bureaucrat& bur) {
         this->setToSign(true, bur.getGrade());
         std::cout << bur.getName() << " Trying to sign the form xixi" << std::endl;
     } catch (const std::exception& e) {
-        std::cerr << bur.getName() << "couldn't sign form because " << e.what() << std::endl;
+        std::cerr << bur.getName() << " couldn't sign form because " << e.what() << std::endl;
         return ;
     }
     std::cout << this->getName() << " form was signed by " << bur.getName() << "." << std::endl;

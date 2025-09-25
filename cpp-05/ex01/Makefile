@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= insane
+NAME		= form
 
 %.o:		%.cpp
 				$(CXX) $(CXXFLAGS) -c $< -o $@

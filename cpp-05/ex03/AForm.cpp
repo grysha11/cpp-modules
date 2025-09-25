@@ -60,7 +60,7 @@ void AForm::beSigned(const Bureaucrat& bur) {
         this->setToSign(true, bur.getGrade());
         std::cout << bur.getName() << " Trying to sign the AForm xixi" << std::endl;
     } catch (const std::exception& e) {
-        std::cerr << bur.getName() << "couldn't sign AForm because " << e.what() << std::endl;
+        std::cerr << bur.getName() << " couldn't sign AForm because " << e.what() << std::endl;
         return ;
     }
     std::cout << this->getName() << " AForm was signed by " << bur.getName() << "." << std::endl;

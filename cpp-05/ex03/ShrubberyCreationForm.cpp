@@ -29,7 +29,7 @@ std::string ShrubberyCreationForm::getTarget() const {
 }
 
 void ShrubberyCreationForm::createAsciiTree() const {
-    std::ofstream file(this->getTarget() + "_shrubbery");
+    std::ofstream file((this->getTarget() + "_shrubbery").c_str());
 
     if (!file) {
         std::cerr << "Error, couldn't create file.";

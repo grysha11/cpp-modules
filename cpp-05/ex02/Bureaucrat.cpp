@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : _name("No-name"), _grade(150) {
-    //std::cout << this->_name << " Default constructor called" << std::endl;
+    std::cout << this->_name << " Default constructor called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name) {
@@ -37,19 +37,27 @@ int Bureaucrat::getGrade() const {
 }
 
 void Bureaucrat::incrementGrade(int n) {
-    if (this->_grade + n > 150) {
-        throw Bureaucrat::GradeTooHighException();
-    }
-    this->_grade += n;
-}
-
-void Bureaucrat::decrementGrade(int n) {
     if (this->_grade - n < 1) {
         throw Bureaucrat::GradeTooLowException();
     }
     this->_grade -= n;
 }
 
+void Bureaucrat::decrementGrade(int n) {
+    if (this->_grade + n > 150) {
+        throw Bureaucrat::GradeTooHighException();
+    }
+    this->_grade += n;
+}
+
+void Bureaucrat::executeForm(AForm const & form) const {
+    try {
+        form.execute(*this);
+    } catch (std::exception &e) {
+        std::cerr << "Bureaucrat " << this->getName() << " couldn't execute form " << form.getName() << " because: " << e.what() << std::endl;
+    }
+    std::cout << "bureaucrat " << this->getName() << " executed form " << form.getName() << std::endl;
+}
 
 Bureaucrat& Bureaucrat::operator = (const Bureaucrat& other) {
     if (this != &other) {

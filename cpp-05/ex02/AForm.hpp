@@ -2,8 +2,11 @@
 #define AForm_HPP
 #include "Bureaucrat.hpp"
 #include <fstream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
+
+class Bureaucrat;
 
 class AForm {
     private:

@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : _name("No-name"), _grade(150) {
-    //std::cout << this->_name << " Default constructor called" << std::endl;
+    std::cout << this->_name << " Default constructor called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name) {
@@ -37,17 +37,17 @@ int Bureaucrat::getGrade() const {
 }
 
 void Bureaucrat::incrementGrade(int n) {
-    if (this->_grade + n > 150) {
-        throw Bureaucrat::GradeTooHighException();
-    }
-    this->_grade += n;
-}
-
-void Bureaucrat::decrementGrade(int n) {
     if (this->_grade - n < 1) {
         throw Bureaucrat::GradeTooLowException();
     }
     this->_grade -= n;
+}
+
+void Bureaucrat::decrementGrade(int n) {
+    if (this->_grade + n > 150) {
+        throw Bureaucrat::GradeTooHighException();
+    }
+    this->_grade += n;
 }
 
 
