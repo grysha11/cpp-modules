@@ -5,20 +5,22 @@
 #include <stdlib.h>
 #include <sstream>
 #include <limits.h>
+#include <stdexcept>
 
 class ScalarConverter {
     private:
         ScalarConverter();
-        static char convChar(const std::string& input);
-        static float convFloat(const std::string& input);
-        static double convDouble(const std::string& input);
-        static bool isInt(const std::string& input);
-        static void printChar(const std::string& input);
-        static void printInt(const std::string& input);
-        static void printFloat(const std::string& input);
-        static void printDouble(const std::string& input);
+        ScalarConverter(const ScalarConverter& other);
+        ScalarConverter& operator=(const ScalarConverter& other);
+        ~ScalarConverter();
+        static void printChar(double d);
+        static void printInt(double d);
+        static void printFloat(double d);
+        static void printDouble(double d);
+        static void printImpossible();
+        static void catchImpossible(const std::string& literal);
     public:
-        static void convert(const std::string &literal);
+        static void convert(const std::string& literal);
 };
 
 #endif

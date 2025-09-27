@@ -8,7 +8,7 @@ RM			= @rm -f
 
 OBJS		= $(SRC:.cpp=.o)
 
-NAME		= Bureaucrat
+NAME		= convert
 
 %.o:		%.cpp
 				$(CXX) $(CXXFLAGS) -c $< -o $@

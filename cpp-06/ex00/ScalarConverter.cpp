@@ -1,99 +1,114 @@
 #include "ScalarConverter.hpp"
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <limits>
+#include <cmath>
+#include <cctype>
 
-char ScalarConverter::convChar(const std::string& input) {
-    std::stringstream ss(input);
-    int i;
-    if (!(ss >> i) || !ss.eof()) {
-        throw std::invalid_argument("Invalid argument");
-    }
-    if (i < 32 || i > 126) {
-        throw std::invalid_argument("Non-displayable");
-    }
-    char c = i;
-    return c;
+ScalarConverter::ScalarConverter() {
+
 }
 
-float ScalarConverter::convFloat(const std::string& input) {
-    std::stringstream ss(input);
-    float f;
-    if (!(ss >> f) || !ss.eof()) {
-        throw std::invalid_argument("Invalid argument");
-    }
-    return f;
+ScalarConverter::ScalarConverter(const ScalarConverter& other) {
+    (void)other;
+}
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
+    (void)other;
+    return *this;
 }
 
-double ScalarConverter::convDouble(const std::string& input) {
-    std::stringstream ss(input);
-    double d;
-    if (!(ss >> d) || !ss.eof()) {
-        throw std::invalid_argument("Invalid argument");
-    }
-    return d;
+ScalarConverter::~ScalarConverter() {
+
 }
 
-bool ScalarConverter::isInt(const std::string& input) {
-    int i = 0;
-
-    if (input[i] == '-' || input[i] == '+') i++;
-    for (; i < input.length(); i++) {
-        if (!isdigit(input[i])) {
-            return false;
-        }
-    }
-    return true;
-}
-
-void ScalarConverter::printChar(const std::string& input) {
+void ScalarConverter::printChar(double d) {
     std::cout << "char: ";
-    try {
-        if (input.length() == 1 && !isdigit(input[0])) {
-            std::cout << "'" << input[0] << "'" << std::endl;
-        }
-        char c = convChar(input);
-        std::cout << "'" << input[0] << "'" << std::endl;
-    } catch (std::exception& e) {
-        std::cout << e.what() << std::endl;
+    if (std::isnan(d) || std::isinf(d) || d < std::numeric_limits<char>::min() || d > std::numeric_limits<char>::max()) {
+        std::cout << "impossible" << std::endl;
+    } else if (!std::isprint(static_cast<char>(d))) {
+        std::cout << "Non displayable" << std::endl;
+    } else {
+        std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
     }
 }
 
-void ScalarConverter::printInt(const std::string& input) {
+void ScalarConverter::printInt(double d) {
     std::cout << "int: ";
-    if (!isInt(input)) {
-        std::cout << "Impossible" << std::endl;
-        return;
-    }
-    try {
-        int i = std::atoi(input.c_str());
-        std::cout << i << std::endl;
-    } catch (std::exception& e) {
-        std::cout << "Impossible" << std::endl;
+    if (std::isnan(d) || std::isinf(d) || d > std::numeric_limits<int>::max() || d < std::numeric_limits<int>::min()) {
+        std::cout << "impossible" << std::endl;
+    } else {
+        std::cout << static_cast<int>(d) << std::endl;
     }
 }
 
-void ScalarConverter::printFloat(const std::string& input) {
-    std::cout << "float: ";
-    try {
-        float f = convFloat(input);
-        std::cout << f << "f" << std::endl;
-
-    } catch (std::exception& e) {
-        std::cout << "Impossible" << std::endl;
+void ScalarConverter::printFloat(double d) {
+    std::cout << "float: " << static_cast<float>(d);
+    double intPart;
+    if (std::modf(d, &intPart) == 0.0 && !std::isinf(d)) {
+        std::cout << ".0";
     }
+    std::cout << "f" << std::endl;
 }
 
-void ScalarConverter::printDouble(const std::string& input) {
-    std::cout << "double: ";
-    try {
-        double d = convDouble(input);
-        std::cout << d << std::endl;
-    } catch (std::exception& e) {
-        std::cout << "Impossible" << std::endl;
+void ScalarConverter::printDouble(double d) {
+    std::cout << "double: " << d;
+    double intPart;
+    if (std::modf(d, &intPart) == 0.0 && !std::isinf(d)) {
+        std::cout << ".0";
+    }
+    std::cout << std::endl;
+}
+
+void ScalarConverter::printImpossible() {
+    std::cout << "char: impossible" << std::endl;
+    std::cout << "int: impossible" << std::endl;
+    std::cout << "float: impossible" << std::endl;
+    std::cout << "double: impossible" << std::endl;
+}
+
+void ScalarConverter::catchImpossible(const std::string& literal) {
+    if (literal.empty()) {
+        printImpossible();
+        throw std::runtime_error("");
+    }
+
+    if (literal.length() == 1 && std::isprint(literal[0]) && !std::isdigit(literal[0])) {
+        char c = literal[0];
+        std::cout << "char: '" << c << "'" << std::endl;
+        std::cout << "int: " << static_cast<int>(c) << std::endl;
+        std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
+        std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
+        throw std::runtime_error("");
+    }
+
+    char* pEnd = NULL;
+    double d = std::strtod(literal.c_str(), &pEnd);
+
+    std::string endStr(pEnd);
+    if (endStr != "" && endStr != "f") {
+        printImpossible();
+        throw std::runtime_error("");
+    }
+
+    if (d == 0.0 && literal[0] != '0' && literal[0] != '+' && literal[0] != '-') {
+        printImpossible();
+        throw std::runtime_error("");
     }
 }
 
 void ScalarConverter::convert(const std::string& literal) {
-    printChar(literal);
-    printInt(literal);
-    printFloat(literal);
-    printDouble(literal);
+    try {
+        catchImpossible(literal);
+
+        char* pEnd = NULL;
+        double d = std::strtod(literal.c_str(), &pEnd);
+
+        printChar(d);
+        printInt(d);
+        printFloat(d);
+        printDouble(d);
+    } catch (std::exception& e) {
+        return;
+    }
 }
