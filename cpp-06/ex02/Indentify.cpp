@@ -1,9 +1,7 @@
 #include "Indentify.hpp"
 
 Base* Indentify::generate(void) {
-    std::srand(std::time(0));
-
-    int random = std::rand() % 3;
+    int random = rand() % 3;
     if (random == 0) {
         std::cout << "A class was created" << std::endl;
         return new A();
