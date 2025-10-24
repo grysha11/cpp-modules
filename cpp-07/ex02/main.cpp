@@ -1,53 +1,42 @@
 #include <iostream>
 #include "Array.hpp"
 
-#define MAX_VAL 750
-int main(int, char**)
-{
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
+int main() {
+    try {
+        Array<int> arr(5);
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
+        for (unsigned int i = 0; i < arr.size(); i++) {
+            arr[i] = i * 10;
         }
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
+
+        std::cout << "Array contents: ";
+        for (unsigned int i = 0; i < arr.size(); i++) {
+            std::cout << arr[i] << " ";
+        }
+        std::cout << std::endl;
+
+        Array<int> copyArr(arr);
+        std::cout << "Copy contents: ";
+        for (unsigned int i = 0; i < copyArr.size(); i++) {
+            std::cout << copyArr[i] << " ";
+        }
+        std::cout << std::endl;
+
+        Array<int> assignedArr;
+        assignedArr = arr;
+
+        std::cout << "Assigned contents: ";
+        for (unsigned int i = 0; i < assignedArr.size(); i++) {
+            std::cout << assignedArr[i] << " ";
+        }
+        std::cout << std::endl;
+
+        std::cout << "Trying out-of-range access..." << std::endl;
+        std::cout << arr[10] << std::endl;
+
+    } catch (std::exception &e) {
+        std::cerr << "Exception caught: " << e.what() << std::endl;
     }
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;//
     return 0;
 }
