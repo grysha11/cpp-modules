@@ -4,7 +4,7 @@ int main()
 {
 try {
     Span sp = Span(1000);
-    sp.coolAddNumber(1001);
+    sp.coolAddNumber(1000);
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
     return 0;
